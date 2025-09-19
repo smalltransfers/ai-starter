@@ -87,7 +87,7 @@ export default function MessageInput(props: Props): JSX.Element {
                     disabled={disabled}
                     variant="secondary"
                     size="icon"
-                    className="size-8 cursor-pointer rounded-full"
+                    className="size-8 rounded-full"
                 >
                     {isProcessing ? <Loader2Icon className="animate-spin" /> : <ArrowUpIcon />}
                 </Button>

@@ -1,7 +1,6 @@
 "use client";
 
-import { Loader2Icon } from "lucide-react";
-import { LogOut } from "lucide-react";
+import { Loader2Icon, LogOut } from "lucide-react";
 import { JSX } from "react";
 import { toast } from "sonner";
 
@@ -57,7 +56,7 @@ export default function Header(): JSX.Element | false {
                         disabled={disabled}
                         variant="link"
                         size="icon"
-                        className="text-muted size-8 cursor-pointer"
+                        className="text-muted size-8"
                     >
                         {isSigningOut ? <Loader2Icon className="animate-spin" /> : <LogOut />}
                     </Button>
