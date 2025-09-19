@@ -2,7 +2,7 @@
 
 import { useChat } from "@ai-sdk/react";
 import { JSX, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 import ChatCost from "@/components/ChatCost";
 import Conversation from "@/components/Conversation";

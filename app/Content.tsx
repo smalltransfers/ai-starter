@@ -2,7 +2,7 @@
 
 import { Loader2Icon } from "lucide-react";
 import { JSX, useEffect } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 import Chat from "@/components/Chat";
 import SignInButton from "@/components/SignInButton";
