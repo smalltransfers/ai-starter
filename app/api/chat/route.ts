@@ -7,7 +7,8 @@ import StatusCode from "status-code-enum";
 import { AI_MODEL, CACHED_INPUT_USD_PER_MILLION, INPUT_USD_PER_MILLION, OUTPUT_USD_PER_MILLION } from "@/lib/constants";
 import { IRON_SESSION_OPTIONS } from "@/lib/ironSession";
 import { SmallTransfersClient } from "@/lib/smalltransfers";
-import { ApiError, Micros, MyUIMessage } from "@/lib/types";
+import { Micros } from "@/lib/smalltransfersTypes";
+import { ApiError, MyUIMessage } from "@/lib/types";
 import { handleApiError } from "@/lib/utils";
 
 export const maxDuration = 30;

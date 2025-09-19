@@ -3,7 +3,8 @@ import StatusCode from "status-code-enum";
 import { twMerge } from "tailwind-merge";
 
 import Logger from "@/lib/logger";
-import { ApiError, ErrorResponse, Micros } from "@/lib/types";
+import { Micros } from "@/lib/smalltransfersTypes";
+import { ApiError, ErrorResponse } from "@/lib/types";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));

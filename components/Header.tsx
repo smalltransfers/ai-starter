@@ -2,34 +2,34 @@
 
 import { Loader2Icon } from "lucide-react";
 import { LogOut } from "lucide-react";
-import { JSX, useState } from "react";
+import { JSX } from "react";
 import { toast } from "react-toastify";
 
 import { Button } from "@/components/ui/button";
+import { signOut } from "@/lib/api";
 import { SMALL_TRANSFERS_BASE_URL } from "@/lib/constants";
-import { useCurrentUserEmail, useSetCurrentUserEmail } from "@/lib/store/hooks";
-import { getResponseErrorString } from "@/lib/utils";
+import { useCurrentUserEmail, useIsSigningOut, useSetCurrentUserEmail, useSetIsSigningOut } from "@/lib/store/hooks";
+import { useIsHydrated } from "@/lib/useIsHydrated";
 
 export default function Header(): JSX.Element | false {
+    const isHydrated = useIsHydrated();
     const currentUserEmail = useCurrentUserEmail();
     const setCurrentUserEmail = useSetCurrentUserEmail();
-    const [isSigningOut, setIsSigningOut] = useState(false);
+    const setIsSigningOut = useSetIsSigningOut();
+    const isSigningOut = useIsSigningOut();
 
-    async function signOut(): Promise<void> {
+    async function handleSignOut(): Promise<void> {
         setIsSigningOut(true);
-        const response = await fetch("/api/users/me", {
-            method: "DELETE",
-        });
-        if (response.ok) {
+        const result = await signOut();
+        if (result.ok) {
             setCurrentUserEmail(null);
         } else {
-            const error = await getResponseErrorString(response);
-            toast.error(`Failed to sign out: ${error}`);
+            toast.error(result.error);
         }
         setIsSigningOut(false);
     }
 
-    const disabled = isSigningOut;
+    const disabled = !isHydrated || isSigningOut;
 
     if (currentUserEmail === undefined || currentUserEmail === null) {
         return false;
@@ -53,7 +53,7 @@ export default function Header(): JSX.Element | false {
 
                     <Button
                         type="submit"
-                        onClick={signOut}
+                        onClick={handleSignOut}
                         disabled={disabled}
                         variant="link"
                         size="icon"

@@ -1,6 +1,10 @@
-This is a [Small Transfers](https://smalltransfers.com) AI starter project (bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app)).
+This is a [Small Transfers](https://smalltransfers.com) AI starter project.
 
-See a [live demo](https://ai-starter.smalltransfers.com/) of this repository. It uses live Small Transfers keys, so "paid requests" charge real customers.
+It was bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app), and uses [shadcn/ui](https://ui.shadcn.com/) for UI, [iron-session](https://github.com/vvo/iron-session) for session management, and [Zustand](https://github.com/pmndrs/zustand) for client state management.
+
+There is a [live demo](https://ai-starter.smalltransfers.com/) of this repository. It uses live Small Transfers keys, so "paid requests" charge real customers.
+
+See also the [Small Transfers Next.js Starter](https://github.com/smalltransfers/nextjs-starter).
 
 ## Getting Started
 

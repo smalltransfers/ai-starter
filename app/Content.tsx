@@ -2,25 +2,25 @@
 
 import { Loader2Icon } from "lucide-react";
 import { JSX, useEffect } from "react";
+import { toast } from "react-toastify";
 
 import Chat from "@/components/Chat";
 import SignInButton from "@/components/SignInButton";
+import { getUser } from "@/lib/api";
 import { useCurrentUserEmail, useSetCurrentUserEmail } from "@/lib/store/hooks";
 
-interface Props {
-    readonly baseUrl: string;
-}
-
-export default function Content(props: Props): JSX.Element {
-    const { baseUrl } = props;
+export default function Content(): JSX.Element {
     const currentUserEmail = useCurrentUserEmail();
     const setCurrentUserEmail = useSetCurrentUserEmail();
 
     useEffect(() => {
-        async function getCurrentUser() {
-            const response = await fetch("/api/users/me");
-            const userEmail = await response.json();
-            setCurrentUserEmail(userEmail);
+        async function getCurrentUser(): Promise<void> {
+            const result = await getUser();
+            if (result.ok) {
+                setCurrentUserEmail(result.value);
+            } else {
+                toast.error(result.error);
+            }
         }
 
         getCurrentUser();
@@ -28,15 +28,15 @@ export default function Content(props: Props): JSX.Element {
 
     if (currentUserEmail === undefined) {
         return (
-            <div className="flex flex-col items-center gap-2">
-                <p className="text-2xl">Loading...</p>
+            <div className="flex items-center gap-2">
                 <Loader2Icon className="animate-spin" />
+                <p className="text-2xl">Loading...</p>
             </div>
         );
     }
 
     if (currentUserEmail === null) {
-        return <SignInButton baseUrl={baseUrl} />;
+        return <SignInButton />;
     }
 
     return (

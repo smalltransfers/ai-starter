@@ -9,6 +9,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormField } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useIsHydrated } from "@/lib/useIsHydrated";
 
 const FORM_SCHEMA = z.object({
     message: z
@@ -28,9 +29,12 @@ interface Props {
 }
 
 export default function MessageInput(props: Props): JSX.Element {
-    const { onNewMessage, disabled } = props;
+    const { onNewMessage, disabled: parentDisabled } = props;
+    const isHydrated = useIsHydrated();
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [isProcessing, setIsProcessing] = useState(false);
+
+    const disabled = !isHydrated || parentDisabled;
 
     useEffect(() => {
         if (!disabled && textareaRef.current) {
@@ -50,10 +54,6 @@ export default function MessageInput(props: Props): JSX.Element {
         form.reset();
         onNewMessage(data.message);
         setIsProcessing(false);
-
-        // setMessageCountWhenThinking(messages.length + 1);
-        // await sendMessage({ text: data.message });
-        // setIsThinking(false);
     }
 
     function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
