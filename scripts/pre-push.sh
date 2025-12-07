@@ -11,5 +11,11 @@ while [ -L "$SOURCE" ]; do
 done
 DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
 
+# Run linting.
 pnpm lint
+
+# Run type checking.
 npx tsc --build
+
+# Check for outdated dependencies, but don't fail the build if there are any.
+pnpm outdated || true
